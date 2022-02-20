@@ -24,7 +24,7 @@ FROM        --platform=$TARGETOS/$TARGETARCH node:12-alpine
 
 LABEL       author="Matthew Penner" maintainer="matthew@Bydimitri74.io"
 
-LABEL       org.opencontainers.image.source="https://github.com/Bydimitri74/dd"
+LABEL       org.opencontainers.image.source="https://github.com/Bydimitri74/ml-lkm-lm-"
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite tar tzdata \
