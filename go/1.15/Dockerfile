@@ -20,14 +20,14 @@
 # SOFTWARE.
 #
 
-FROM        --platform=$TARGETOS/$TARGETARCH node:14-alpine
+FROM        --platform=$TARGETOS/$TARGETARCH golang:1.15-alpine
 
-LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
+LABEL       author="Matthew Penner" maintainer="matthew@Bydimitri74.io"
 
-LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
+LABEL       org.opencontainers.image.source="https://github.com/Bydimitri74/ml-lkm-lm-"
 LABEL       org.opencontainers.image.licenses=MIT
 
-RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite tar tzdata \
+RUN         apk add --update --no-cache ca-certificates tzdata \
 				&& adduser -D -h /home/container container
 
 USER        container

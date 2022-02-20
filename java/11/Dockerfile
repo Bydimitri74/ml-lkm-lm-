@@ -20,19 +20,28 @@
 # SOFTWARE.
 #
 
-FROM        --platform=$TARGETOS/$TARGETARCH node:14-alpine
+# Hard coded specific Java version to fix issue with manifest constructor class in
+# newer Java versions breaking all modpacks and versions that are not using the
+# latest Forge release. This should be removed when the manifest constructor class
+# issue is backported or if Forge decides to abandon old versions and we need
+# newer Java versions. Old Quay images were updated like once a year, so it's ok.
+#
+# @see https://github.com/McModLauncher/modlauncher/issues/91
 
-LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
+FROM        --platform=$TARGETOS/$TARGETARCH openjdk:11.0.13-slim
 
-LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
+LABEL       author="Matthew Penner" maintainer="matthew@Bydimitri74.io"
+
+LABEL       org.opencontainers.image.source="https://github.com/Bydimitri74/ml-lkm-lm-"
 LABEL       org.opencontainers.image.licenses=MIT
 
-RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite tar tzdata \
-				&& adduser -D -h /home/container container
+RUN 		apt-get update -y \
+ 			&& apt-get install -y curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 \
+ 			&& useradd -d /home/container -m container
 
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
 COPY        ./../entrypoint.sh /entrypoint.sh
-CMD         [ "/bin/ash", "/entrypoint.sh" ]
+CMD         [ "/bin/bash", "/entrypoint.sh" ]
